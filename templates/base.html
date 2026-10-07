@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sports Club DBMS</title><link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"></head><body>
+<aside><div class="brand"><strong>SC</strong><span>Sports Club<small>DBMS Application</small></span></div>
+<nav>
+<a href="{{url_for('dashboard')}}">Dashboard</a><a href="{{url_for('members')}}">Members</a>
+<a href="{{url_for('teams')}}">Teams & Training</a><a href="{{url_for('tournaments')}}">Tournaments</a>
+<a href="{{url_for('facilities')}}">Facilities</a><a href="{{url_for('schema')}}">Database Schema</a>
+<a href="{{url_for('queries')}}">SQL Queries</a><a href="{{url_for('reports')}}">Reports</a>
+</nav><footer>Review 2 + Review 3<br><small>Working application</small></footer></aside>
+<main><header><div><h1>{% block title %}Sports Club{% endblock %}</h1><p>Membership & Tournament Management System</p></div><div class="student">Aakar Sinha • 25WU0102001</div></header>
+{% with messages=get_flashed_messages(with_categories=true) %}{% for cat,msg in messages %}<div class="flash {{cat}}">{{msg}}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}</main></body></html>

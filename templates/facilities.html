@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Facilities{% endblock %}{% block content %}
+<div class="toolbar"><div><h2>Facilities</h2><p>Manage club facilities and monitor training usage.</p></div></div>
+<div class="grid2"><div class="card"><h3>+ Add Facility</h3><form method="post" action="{{url_for('add_facility')}}" class="form">
+<input name="name" placeholder="Facility name" required><input name="capacity" type="number" min="1" placeholder="Capacity" required>
+<input name="type" placeholder="Type (Court/Ground/Hall)" required><input name="location" placeholder="Location" required>
+<button class="primary">Add Facility</button></form></div>
+<div class="card"><h3>Facility Rules</h3><ul><li>Capacity must be greater than zero.</li><li>Facility names are unique.</li><li>Training sessions use a facility foreign key.</li><li>Overlapping training sessions are blocked by a database trigger.</li></ul></div></div>
+<div class="cards3">{% for f in facilities %}<div class="card"><span class="tag">{{f.type}}</span><h3>{{f.name}}</h3><p>Capacity: <b>{{f.capacity}}</b></p><p>{{f.location}}</p><p>Training sessions: {{f.sessions}}</p><form method="post" action="{{url_for('delete_facility',facility_id=f.facility_id)}}" onsubmit="return confirm('Delete facility?')"><button class="danger">Delete</button></form></div>{% endfor %}</div>{% endblock %}

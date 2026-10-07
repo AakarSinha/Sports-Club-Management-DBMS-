@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Database Schema{% endblock %}{% block content %}
+<div class="notice"><b>Review 2 — Final Logical Design:</b> Live database metadata with keys and required fields.</div>
+<div class="grid2"><div class="card"><h3>Integrity constraints</h3><ul><li>Primary Keys</li><li>Foreign Keys</li><li>NOT NULL / required fields</li><li>UNIQUE email, phone and master names</li><li>CHECK for valid status, dates, amounts, quantity and duration</li><li>Triggers for schedule overlap</li></ul></div>
+<div class="card"><h3>What to tell Sir</h3><p>“These are the actual tables used by the working application. The same schema.sql defines the integrity constraints.”</p></div></div>
+<div class="schema">{% for t in tables %}<details class="card" open><summary><b>{{t.name}}</b> <span>{{t.columns|length}} columns</span></summary>
+<table><tr><th>Column</th><th>Type</th><th>Required</th><th>PK</th><th>FK</th></tr>{% for c in t.columns %}<tr><td>{{c[1]}}</td><td>{{c[2]}}</td><td>{{'YES' if c[3] or c[5] else 'NO'}}</td><td>{{'YES' if c[5] else 'NO'}}</td><td>{% for fk in t.fks if fk[3]==c[1] %}{{fk[2]}}.{{fk[4]}}{% endfor %}</td></tr>{% endfor %}</table></details>{% endfor %}</div>{% endblock %}

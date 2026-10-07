@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block content %}
+<div class="hero"><div><span class="eyebrow">WORKING DBMS APPLICATION</span><h2>One system for the whole sports club.</h2><p>Database-backed management of members, teams, training, tournaments and facilities.</p></div><div class="badge">DBMS<br><b>Review 2 + 3</b></div></div>
+<div class="stats">{% for k,label in [('members','Members'),('teams','Teams'),('tournaments','Tournaments'),('facilities','Facilities')] %}<div class="card stat"><span>{{label}}</span><b>{{counts[k]}}</b><small>Database records</small></div>{% endfor %}</div>
+<div class="grid2"><div class="card"><h3>Upcoming Tournaments</h3>{% for x in upcoming %}<div class="row"><b>{{x.name}}</b><span>{{x.sport_name}} • {{x.start_date}} • {{x.status}}</span></div>{% endfor %}</div>
+<div class="card"><h3>Business Rules</h3><ul><li>Primary and foreign key integrity</li><li>Unique member contact details</li><li>Valid dates, amounts and statuses</li><li>No overlapping team/facility training schedules</li></ul></div></div>{% endblock %}

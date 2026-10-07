@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}Tournaments{% endblock %}{% block content %}
+<div class="grid2"><div class="card"><h3>+ Add Tournament</h3><form method="post" action="{{url_for('add_tournament')}}" class="form">
+<input name="name" placeholder="Tournament name" required><select name="sport_id" required>{% for s in sports %}<option value="{{s.sport_id}}">{{s.sport_name}}</option>{% endfor %}</select>
+<input name="start_date" type="date" required><input name="end_date" type="date" required>
+<select name="status"><option>Upcoming</option><option>Open</option><option>Ongoing</option><option>Completed</option><option>Cancelled</option></select>
+<button class="primary">Add Tournament</button></form></div>
+<div class="card"><h3>+ Add Fixture</h3><form method="post" action="{{url_for('add_fixture')}}" class="form">
+<select name="tournament_id" required>{% for t in tournaments %}<option value="{{t.tournament_id}}">{{t.name}}</option>{% endfor %}</select>
+<input name="fixture_date" type="date" required><input name="fixture_time" type="time" required><input name="venue" placeholder="Venue" required>
+<select name="status"><option>Scheduled</option><option>Completed</option><option>Cancelled</option></select>
+<button class="primary">Add Fixture</button></form></div></div>
+<div class="cards3">{% for t in tournaments %}<div class="card"><span class="tag">{{t.sport_name}}</span><h3>{{t.name}}</h3><p>{{t.start_date}} → {{t.end_date}}</p><span class="pill">{{t.status}}</span>
+<form method="post" action="{{url_for('delete_tournament',tournament_id=t.tournament_id)}}" onsubmit="return confirm('Delete tournament?')"><button class="danger">Delete</button></form></div>{% endfor %}</div>
+<div class="card tablewrap"><h3>Fixtures</h3><table><tr><th>ID</th><th>Tournament</th><th>Date</th><th>Time</th><th>Venue</th><th>Status</th></tr>{% for f in fixtures %}<tr><td>{{f.fixture_id}}</td><td>{{f.tournament_name}}</td><td>{{f.fixture_date}}</td><td>{{f.fixture_time}}</td><td>{{f.venue}}</td><td>{{f.status}}</td></tr>{% endfor %}</table></div>
+{% endblock %}

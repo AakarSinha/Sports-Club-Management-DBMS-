@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Edit Member{% endblock %}{% block content %}
+<div class="card narrow"><h2>Edit Member #{{member.member_id}}</h2><form method="post" class="form">
+<input name="first_name" value="{{member.first_name}}" required><input name="last_name" value="{{member.last_name or ''}}">
+<input name="email" type="email" value="{{member.email}}" required><input name="phone" value="{{member.phone}}" required>
+<input name="join_date" type="date" value="{{member.join_date}}" required><select name="status">
+{% for x in ['Active','Inactive','Suspended'] %}<option {% if member.status==x %}selected{% endif %}>{{x}}</option>{% endfor %}</select>
+<select name="plan_id">{% for p in plans %}<option value="{{p.plan_id}}" {% if p.plan_id==member.plan_id %}selected{% endif %}>{{p.plan_name}}</option>{% endfor %}</select>
+<button class="primary">Save Changes</button><a class="cancel" href="{{url_for('members')}}">Cancel</a></form></div>{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block title %}Teams & Training{% endblock %}{% block content %}
+<div class="toolbar"><div><h2>Teams & Training</h2><p>Manage teams, coaches, sessions and facilities.</p></div></div>
+<div class="grid2">
+<div class="card"><h3>+ Add Team</h3><form method="post" action="{{url_for('add_team')}}" class="form">
+<input name="team_name" placeholder="Team name" required><input name="founded_year" type="number" placeholder="Founded year">
+<select name="sport_id" required>{% for s in sports %}<option value="{{s.sport_id}}">{{s.sport_name}}</option>{% endfor %}</select>
+<select name="coach_id" required>{% for c in coaches %}<option value="{{c.coach_id}}">{{c.name}}</option>{% endfor %}</select>
+<select name="status"><option>Active</option><option>Inactive</option></select><button class="primary">Add Team</button></form></div>
+<div class="card"><h3>+ Schedule Training</h3><form method="post" action="{{url_for('add_training')}}" class="form">
+<select name="team_id" required>{% for t in teams %}<option value="{{t.team_id}}">{{t.team_name}}</option>{% endfor %}</select>
+<select name="facility_id" required>{% for f in facilities %}<option value="{{f.facility_id}}">{{f.name}}</option>{% endfor %}</select>
+<input name="session_date" type="date" required><input name="session_time" type="time" required>
+<input name="duration_minutes" type="number" min="1" value="60" placeholder="Duration (minutes)" required>
+<select name="status"><option>Scheduled</option><option>Completed</option><option>Cancelled</option></select>
+<button class="primary">Add Session</button></form></div></div>
+<div class="card tablewrap"><h3>Teams</h3><table><tr><th>Team</th><th>Sport</th><th>Coach</th><th>Founded</th><th>Status</th><th>Action</th></tr>
+{% for t in teams %}<tr><td><b>{{t.team_name}}</b></td><td>{{t.sport_name}}</td><td>{{t.coach_name}}</td><td>{{t.founded_year}}</td><td><span class="pill">{{t.status}}</span></td><td><form method="post" action="{{url_for('delete_team',team_id=t.team_id)}}" onsubmit="return confirm('Delete this team?')"><button class="danger">Delete</button></form></td></tr>{% endfor %}</table></div>
+<div class="card tablewrap"><h3>Training Schedule</h3><table><tr><th>Date</th><th>Time</th><th>Team</th><th>Facility</th><th>Duration</th><th>Status</th><th>Action</th></tr>
+{% for s in sessions %}<tr><td>{{s.session_date}}</td><td>{{s.session_time}}</td><td>{{s.team_name}}</td><td>{{s.facility_name}}</td><td>{{s.duration_minutes}} min</td><td>{{s.status}}</td><td><form method="post" action="{{url_for('delete_training',training_id=s.training_id)}}" onsubmit="return confirm('Delete session?')"><button class="danger">Delete</button></form></td></tr>{% endfor %}</table></div>
+{% endblock %}

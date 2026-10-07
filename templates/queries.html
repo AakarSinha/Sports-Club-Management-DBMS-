@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}SQL Queries{% endblock %}{% block content %}
+<div class="notice"><b>Review 2 / Viva:</b> These queries execute live against the database used by the application.</div>
+{% for q in query_rows %}<div class="card"><h3>{{q.code}} — {{q.title}}</h3><pre>{{q.sql}}</pre>
+<div class="tablewrap"><table>{% if q.rows %}<tr>{% for key in q.rows[0].keys() %}<th>{{key}}</th>{% endfor %}</tr>{% for row in q.rows %}<tr>{% for key in row.keys() %}<td>{{row[key]}}</td>{% endfor %}</tr>{% endfor %}{% endif %}</table></div></div>{% endfor %}
+{% endblock %}
